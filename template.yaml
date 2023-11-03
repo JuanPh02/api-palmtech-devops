@@ -1,0 +1,215 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  api-palmtech-devops
+
+  Sample SAM Template for api-palmtech-devops
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 3
+    MemorySize: 128
+
+Resources:
+
+  # ---------------------------------------------------------------------------- #
+  #                                 DYNAMO TABLES                                #
+  # ---------------------------------------------------------------------------- #
+
+  ServicesDynamoDBTable:
+    Type: AWS::DynamoDB::Table
+    Properties: 
+      TableName: Services
+      AttributeDefinitions: 
+        - AttributeName: serviceID
+          AttributeType: S
+      KeySchema: 
+        - AttributeName: serviceID
+          KeyType: HASH
+      ProvisionedThroughput: 
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+
+  TechniciansDynamoDBTable:
+    Type: AWS::DynamoDB::Table
+    Properties: 
+      TableName: Technicians
+      AttributeDefinitions: 
+        - AttributeName: technicianID
+          AttributeType: S
+      KeySchema: 
+        - AttributeName: technicianID
+          KeyType: HASH
+      ProvisionedThroughput: 
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+
+  # ---------------------------------------------------------------------------- #
+  #                                   FUNCTIONS                                  #
+  # ---------------------------------------------------------------------------- #
+  
+  # -------------------------------- TECHNICIANS ------------------------------- #
+
+  CreateTechnicianFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: Technicians/create_technician
+      Handler: app.lambdaHandler
+      Runtime: nodejs16.x
+      Architectures:
+      - x86_64
+      Policies:
+      - Statement:
+        - Sid: AllowDynamoDbTable
+          Effect: Allow
+          Action:
+          - dynamodb:*
+          Resource: 
+          - 'arn:aws:dynamodb:us-east-1:028433173749:table/Technicians'
+      Events:
+        CreateTechnician:
+          Type: Api
+          Properties:
+            Path: /technicians
+            Method: post            
+
+  GetTechniciansFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: Technicians/get_technicians
+      Handler: app.lambdaHandler
+      Runtime: nodejs16.x
+      Architectures:
+      - x86_64
+      Policies:
+      - Statement:
+        - Sid: AllowDynamoDbTable
+          Effect: Allow
+          Action:
+          - dynamodb:*
+          Resource: 
+          - 'arn:aws:dynamodb:us-east-1:028433173749:table/Technicians'
+      Events:
+        GetTechnicians:
+          Type: Api
+          Properties:
+            Path: /technicians
+            Method: get             
+
+  DeleteTechnicianFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: Technicians/delete_technician
+      Handler: app.lambdaHandler
+      Runtime: nodejs16.x
+      Architectures:
+      - x86_64
+      Policies:
+      - Statement:
+        - Sid: AllowDynamoDbTable
+          Effect: Allow
+          Action:
+          - dynamodb:*
+          Resource: 
+          - 'arn:aws:dynamodb:us-east-1:028433173749:table/Technicians'
+      Events:
+        DeleteTechnician:
+          Type: Api
+          Properties:
+            Path: /technicians
+            Method: delete             
+
+  # --------------------------------- SERVICES --------------------------------- #
+
+  CreateServiceFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: Services/create_service
+      Handler: app.lambdaHandler
+      Runtime: nodejs16.x
+      Architectures:
+      - x86_64
+      Policies:
+      - Statement:
+        - Sid: AllowDynamoDbTable
+          Effect: Allow
+          Action:
+          - dynamodb:*
+          Resource: 
+          - 'arn:aws:dynamodb:us-east-1:028433173749:table/Services'
+      Events:
+        CreateService:
+          Type: Api
+          Properties:
+            Path: /services
+            Method: post            
+
+  GetServicesFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: Services/get_services
+      Handler: app.lambdaHandler
+      Runtime: nodejs16.x
+      Architectures:
+      - x86_64
+      Policies:
+      - Statement:
+        - Sid: AllowDynamoDbTable
+          Effect: Allow
+          Action:
+          - dynamodb:*
+          Resource: 
+          - 'arn:aws:dynamodb:us-east-1:028433173749:table/Services'
+      Events:
+        GetServices:
+          Type: Api
+          Properties:
+            Path: /services
+            Method: get
+
+  DeleteServiceFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: Services/delete_service
+      Handler: app.lambdaHandler
+      Runtime: nodejs16.x
+      Architectures:
+      - x86_64
+      Policies:
+      - Statement:
+        - Sid: AllowDynamoDbTable
+          Effect: Allow
+          Action:
+          - dynamodb:*
+          Resource: 
+          - 'arn:aws:dynamodb:us-east-1:028433173749:table/Services'
+      Events:
+        DeleteService:
+          Type: Api
+          Properties:
+            Path: /services
+            Method: delete             
+
+  ApplicationResourceGroup:
+    Type: AWS::ResourceGroups::Group
+    Properties:
+      Name:
+        Fn::Sub: ApplicationInsights-SAM-${AWS::StackName}
+      ResourceQuery:
+        Type: CLOUDFORMATION_STACK_1_0
+        
+  ApplicationInsightsMonitoring:
+    Type: AWS::ApplicationInsights::Application
+    Properties:
+      ResourceGroupName:
+        Ref: ApplicationResourceGroup
+      AutoConfigurationEnabled: 'true'
+
+Outputs:
+  # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
+  # Find out more about other implicit resources you can reference within SAM
+  # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
+  PalmTechApi:
+    Description: API Gateway endpoint URL for dev stage
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
