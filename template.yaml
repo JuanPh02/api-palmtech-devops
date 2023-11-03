@@ -97,6 +97,29 @@ Resources:
             Path: /technicians
             Method: get             
 
+  UpdateTechnicianFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: Technicians/update_technician
+      Handler: app.lambdaHandler
+      Runtime: nodejs16.x
+      Architectures:
+      - x86_64
+      Policies:
+      - Statement:
+        - Sid: AllowDynamoDbTable
+          Effect: Allow
+          Action:
+          - dynamodb:*
+          Resource: 
+          - 'arn:aws:dynamodb:us-east-1:028433173749:table/Technicians'
+      Events:
+        UpdateService:
+          Type: Api
+          Properties:
+            Path: /technicians
+            Method: put             
+
   DeleteTechnicianFunction:
     Type: AWS::Serverless::Function 
     Properties:
@@ -166,7 +189,30 @@ Resources:
           Type: Api
           Properties:
             Path: /services
-            Method: get
+            Method: get             
+
+  UpdateServiceFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: Services/update_service
+      Handler: app.lambdaHandler
+      Runtime: nodejs16.x
+      Architectures:
+      - x86_64
+      Policies:
+      - Statement:
+        - Sid: AllowDynamoDbTable
+          Effect: Allow
+          Action:
+          - dynamodb:*
+          Resource: 
+          - 'arn:aws:dynamodb:us-east-1:028433173749:table/Services'
+      Events:
+        UpdateService:
+          Type: Api
+          Properties:
+            Path: /services
+            Method: put             
 
   DeleteServiceFunction:
     Type: AWS::Serverless::Function 
@@ -198,7 +244,6 @@ Resources:
         Fn::Sub: ApplicationInsights-SAM-${AWS::StackName}
       ResourceQuery:
         Type: CLOUDFORMATION_STACK_1_0
-        
   ApplicationInsightsMonitoring:
     Type: AWS::ApplicationInsights::Application
     Properties:
