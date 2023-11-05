@@ -3,7 +3,7 @@ const dynamodb = new AWS.DynamoDB.DocumentClient();
 
 exports.lambdaHandler = async (event) => {
   try {
-    const technicianID = event.queryStringParameters.technicianID;
+    const technicianID = event.queryStringParameters ? event.queryStringParameters.technicianID : null;
 
     if (!technicianID) {
       return {
