@@ -1,0 +1,252 @@
+{
+	"info": {
+		"_postman_id": "dde907c6-e23e-408e-9b9e-cecdd0f9df08",
+		"name": "API-PalmTech-DevOps",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14323487"
+	},
+	"item": [
+		{
+			"name": "Technicians",
+			"item": [
+				{
+					"name": "GetTechnicians",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://38ryhnxh7c.execute-api.us-east-1.amazonaws.com/Prod/technicians",
+							"protocol": "https",
+							"host": [
+								"38ryhnxh7c",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"Prod",
+								"technicians"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateTechnician",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n      \"documentID\": \"33456734\",\r\n      \"name\": \"Deivid\",\r\n      \"lastname\": \"Lopera\",\r\n      \"sector\": \"Cambio de Piezas\",\r\n      \"birthday\": \"28/04/1998\",\r\n      \"address\": \"Calle 30 #20 - 12\",\r\n      \"email\": \"prelodiv@gmail.com\",\r\n      \"phone\": \"+573123458909\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://38ryhnxh7c.execute-api.us-east-1.amazonaws.com/Prod/technicians",
+							"protocol": "https",
+							"host": [
+								"38ryhnxh7c",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"Prod",
+								"technicians"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteTechnician",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://38ryhnxh7c.execute-api.us-east-1.amazonaws.com/Prod/technicians?technicianID=8dac9266-7608-4525-8f56-7e1c7635a747",
+							"protocol": "https",
+							"host": [
+								"38ryhnxh7c",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"Prod",
+								"technicians"
+							],
+							"query": [
+								{
+									"key": "technicianID",
+									"value": "8dac9266-7608-4525-8f56-7e1c7635a747"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateTechnician",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"lastname\": \"Skitter\",\r\n    \"technicianID\": \"1fa646fd-3579-4439-beca-14dbe9600ad0\",\r\n    \"documentID\": 6082853107,\r\n    \"sector\": \"Microelectronica\",\r\n    \"address\": \"77782 Portage Alley\",\r\n    \"email\": \"gskitt1b@ca.gov\",\r\n    \"phone\": \"+86 566 668 5807\",\r\n    \"name\": \"Galvin\",\r\n    \"birthday\": \"11/06/1988\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://38ryhnxh7c.execute-api.us-east-1.amazonaws.com/Prod/technicians",
+							"protocol": "https",
+							"host": [
+								"38ryhnxh7c",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"Prod",
+								"technicians"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Services",
+			"item": [
+				{
+					"name": "GetServices",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://38ryhnxh7c.execute-api.us-east-1.amazonaws.com/Prod/services",
+							"protocol": "https",
+							"host": [
+								"38ryhnxh7c",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"Prod",
+								"services"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateService",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"category\": \"Cambio de Piezas\",\n    \"brand\": \"Samsung\",\n    \"model\": \"A70\",\n    \"imei\": 908493993332235,\n    \"damage\": \"Problema de señal\",\n    \"description\": \"Se cae la señal al realizar una llamada\",\n    \"price\": 200000,\n    \"customerName\": \"Juan Arroyave\",\n    \"customerPhoneNumber\": \"+573013544092\",\n    \"customerEmail\": \"juanpabloarroyave1@hotmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://38ryhnxh7c.execute-api.us-east-1.amazonaws.com/Prod/services",
+							"protocol": "https",
+							"host": [
+								"38ryhnxh7c",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"Prod",
+								"services"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteService",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://38ryhnxh7c.execute-api.us-east-1.amazonaws.com/Prod/services?serviceID=ba876763-6e7d-42d8-bdca-fc43a9c69427",
+							"protocol": "https",
+							"host": [
+								"38ryhnxh7c",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"Prod",
+								"services"
+							],
+							"query": [
+								{
+									"key": "serviceID",
+									"value": "ba876763-6e7d-42d8-bdca-fc43a9c69427"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateService",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"model\": \"Mi 11\",\n    \"customerName\": \"Bel Archanbault\",\n    \"damage\": \"Display con rallas y táctil que no responde\",\n    \"imei\": 646304225788765,\n    \"category\": \"Remanufactura de pantallas\",\n    \"serviceID\": \"04a603fe-7cc9-40ad-906f-41924a0d18c1\",\n    \"brand\": \"Xiaomi\",\n    \"customerEmail\": \"barchanbault1b@feedburner.com\",\n    \"price\": 126663,\n    \"description\": \"Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.\",\n    \"customerPhoneNumber\": \"715-539-7550\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://38ryhnxh7c.execute-api.us-east-1.amazonaws.com/Prod/services",
+							"protocol": "https",
+							"host": [
+								"38ryhnxh7c",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"Prod",
+								"services"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
