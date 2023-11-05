@@ -5,6 +5,23 @@ exports.lambdaHandler = async (event) => {
   try {
     const serviceID = event.queryStringParameters.serviceID;
 
+    if (!serviceID) {
+      return {
+        statusCode: 400,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Headers': 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token',
+          'Access-Control-Allow-Methods': 'OPTIONS,POST',
+          'Access-Control-Allow-Credentials': 'true',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ok: false,
+          message: 'El campo serviceID es obligatorio en la solicitud',
+        }),
+      };
+    }
+
     const params = {
       TableName: 'Services',
       Key: {
