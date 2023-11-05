@@ -25,16 +25,19 @@ exports.lambdaHandler = async (event, context) => {
     const params = {
       TableName: 'Technicians',
       Key: { technicianID: requestBody.technicianID },
-      UpdateExpression: 'SET documentID = :documentID, name = :name, lastname = :lastname, sector = :sector, birthday = :birthday, address = :address, email = :email, phone = :phone',
+      UpdateExpression: 'SET documentID = :documentID, #name = :fname, lastname = :lastname, sector = :sector, birthday = :birthday, address = :address, email = :email, phone = :phone',
       ExpressionAttributeValues: {
         ':documentID': requestBody.documentID,
-        ':name': requestBody.name,
+        ':fname': requestBody.name,
         ':lastname': requestBody.lastname,
         ':sector': requestBody.sector,
         ':birthday': requestBody.birthday,
         ':address': requestBody.address,
         ':email': requestBody.email,
         ':phone': requestBody.phone,
+      },
+      ExpressionAttributeNames: {
+        '#name': 'name',
       },
       ReturnValues: 'ALL_NEW',
     };
