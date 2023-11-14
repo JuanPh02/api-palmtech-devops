@@ -9,7 +9,6 @@ phases:
       - npm install
       - npm test
       - aws cloudformation package --template-file template.yaml --s3-bucket $S3_BUCKET --output-template-file packaged-template.yaml
-  artifacts:
-    files:
-      - template.yaml
-      - packaged-template.yaml
+  post_build:
+    commands:
+      - aws cloudformation deploy --template-file packaged-template.yaml --stack-name my-stack-name --capabilities CAPABILITY_IAM
