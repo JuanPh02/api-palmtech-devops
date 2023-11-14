@@ -1,0 +1,15 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 16
+  build:
+    commands:
+      - npm install
+      - npm test
+      - aws cloudformation package --template-file template.yaml --s3-bucket $S3_BUCKET --output-template-file packaged-template.yaml
+  artifacts:
+    files:
+      - template.yaml
+      - packaged-template.yaml
