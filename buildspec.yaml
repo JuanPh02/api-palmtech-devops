@@ -1,11 +1,27 @@
 version: 0.2
 
+env:
+  variables:
+    S3_BUCKET: "data-palmtech"
+
 phases:
-  build:
+  install:
+    runtime-versions:
+      nodejs: 16
+  pre_build:
     commands:
       - npm install
-      - npm test
+  build:
+    commands:
+      - cd Services && cd create_service && npm test
+      - cd ..
+      - cd delete_service && npm test 
+      - cd ..
+      - cd get_services && npm test 
+      - cd .. 
+      - cd update_service && npm test 
+      - cd ../..
       - aws cloudformation package --template-file template.yaml --s3-bucket $S3_BUCKET --output-template-file packaged-template.yaml
   post_build:
     commands:
-      - aws cloudformation deploy --template-file packaged-template.yaml --stack-name my-stack-name --capabilities CAPABILITY_IAM
+      - aws cloudformation deploy --template-file packaged-template.yaml --stack-name api-palmtech-devops --capabilities CAPABILITY_IAM
