@@ -7,10 +7,8 @@ exports.lambdaHandler = async (event, context) => {
   try {
     const requestBody = JSON.parse(event.body);
 
-    // Genera un nuevo ID para el técnico
     const technicianID = uuidv4();
 
-    // Construye el objeto Technician
     const newTechnician = {
       technicianID,
       documentID: requestBody.documentID,
@@ -23,13 +21,11 @@ exports.lambdaHandler = async (event, context) => {
       phone: requestBody.phone
     };
 
-    // Parámetros para la operación PutItem de DynamoDB
     const params = {
-      TableName: 'Technicians', // Nombre de la tabla en DynamoDB
+      TableName: 'Technicians',
       Item: newTechnician
     };
 
-    // Inserta el nuevo técnico en la tabla
     await dynamodb.put(params).promise();
 
     return {
@@ -43,6 +39,7 @@ exports.lambdaHandler = async (event, context) => {
       },
       body: JSON.stringify({
         ok: true,
+        item: newTechnician,
         message: 'El técnico se ha creado correctamente'
       })
     };

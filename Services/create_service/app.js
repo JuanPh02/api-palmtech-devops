@@ -9,21 +9,23 @@ exports.lambdaHandler = async (event, context) => {
 
     const serviceID = uuidv4();
 
+    const newService = {
+      serviceID,
+      category: requestBody.category,
+      brand: requestBody.brand,
+      model: requestBody.model,
+      imei: requestBody.imei,
+      damage: requestBody.damage,
+      description: requestBody.description,
+      price: requestBody.price,
+      customerName: requestBody.customerName,
+      customerPhoneNumber: requestBody.customerPhoneNumber,
+      customerEmail: requestBody.customerEmail
+    }
+
     const params = {
       TableName: 'Services',
-      Item: {
-        serviceID,
-        category: requestBody.category,
-        brand: requestBody.brand,
-        model: requestBody.model,
-        imei: requestBody.imei,
-        damage: requestBody.damage,
-        description: requestBody.description,
-        price: requestBody.price,
-        customerName: requestBody.customerName,
-        customerPhoneNumber: requestBody.customerPhoneNumber,
-        customerEmail: requestBody.customerEmail
-      },
+      Item: newService
     };
 
     await dynamodb.put(params).promise();
@@ -39,7 +41,8 @@ exports.lambdaHandler = async (event, context) => {
       },
       body: JSON.stringify({
         ok: true,
-        message: 'El servicio se ha guardado correctamente',
+        item: newService,
+        message: 'El servicio se ha creado correctamente',
       }),
     };
     return response;

@@ -4,12 +4,10 @@ const dynamodb = new AWS.DynamoDB.DocumentClient();
 
 exports.lambdaHandler = async (event, context) => {
   try {
-    // Parámetros para la operación Scan de DynamoDB (escaneo de la tabla completa)
     const params = {
-      TableName: 'Technicians', // Nombre de la tabla en DynamoDB
+      TableName: 'Technicians',
     };
 
-    // Realiza la consulta en la tabla
     const result = await dynamodb.scan(params).promise();
 
     return {
