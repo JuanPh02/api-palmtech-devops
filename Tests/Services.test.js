@@ -97,19 +97,19 @@ describe('Test - Delete a service', function () {
 });
 
 
-// describe('Test - Get services', function () {
-//   it('should query all services saved in DynamoDB and return a success response', async () => {
-//       const result = await appGet.lambdaHandler(event, context)
+describe('Test - Get services', function () {
+  it('should query all services saved in DynamoDB and return a success response', async () => {
+      const result = await appGet.lambdaHandler(event, context)
 
-//       expect(result).to.be.an('object');
-//       expect(result.statusCode).to.equal(200);
-//       expect(result.body).to.be.an('string');
+      expect(result).to.be.an('object');
+      expect(result.statusCode).to.equal(200);
+      expect(result.body).to.be.an('string');
 
-//       let response = JSON.parse(result.body);
+      let response = JSON.parse(result.body);
       
-//       expect(response).to.be.an('array');
-//   });
-// });
+      expect(response).to.be.an('array');
+  });
+});
 
 
 describe('Test - Update a service', function () {
