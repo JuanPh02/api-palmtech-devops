@@ -26,7 +26,7 @@ describe('Test - Create a service', function () {
       };
 
       const result = await appCreate.lambdaHandler(event, context)
-      console.log(result);
+      
       expect(result).to.be.an('object');
       expect(result.statusCode).to.equal(200);
       expect(result.body).to.be.an('string');
