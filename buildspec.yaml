@@ -14,7 +14,7 @@ phases:
       - npm test
   post_build:
     commands:
-      - aws cloudformation package --template-file template.yaml --output-template-file packaged-template.yaml 
+      - aws cloudformation package --template-file template.yaml --s3-bucket data-palmtech --output-template-file packaged-template.yaml 
 artifacts:
   files:
     - packaged-template.yaml 
