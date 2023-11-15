@@ -14,4 +14,4 @@ phases:
       - npm test
   post_build:
     commands:
-      - aws cloudformation package --template-file template.yaml --stack-name my-stack-name --s3-bucket api-palmtech-devops --capabilities CAPABILITY_IAM
+      - aws cloudformation package --template-file template.yaml --stack-name api-palmtech-devops --s3-bucket data-palmtech --capabilities CAPABILITY_IAM
