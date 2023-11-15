@@ -4,11 +4,10 @@ phases:
   install:
     runtime-versions:
       nodejs: 16
-    commands:
-      - npm install
   pre_build:
     commands:
-      - cd Services && cd create_service && npm test
+      - export AWS_DEFAULT_REGION=us-east-1
+      - cd Services && cd create_service && npm install && npm test
       - cd ../..
   build:
     commands:
