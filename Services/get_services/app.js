@@ -19,10 +19,10 @@ exports.lambdaHandler = async (event, context) => {
         'Access-Control-Allow-Credentials': 'true',
         'Content-Type': 'application/json'
       },
-      body: {
-        items: JSON.stringify(result.Items),
+      body: JSON.stringify({
+        items: result.Items,
         message: 'Test Deploy'
-      }
+      })
     };
   } catch (error) {
     return {
