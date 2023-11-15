@@ -4,14 +4,14 @@ phases:
   install:
     runtime-versions:
       nodejs: 16
+    commands:
+      - npm install
   pre_build:
     commands:
       - export AWS_DEFAULT_REGION=us-east-1
-      - cd Services && cd create_service && npm install && npm test
-      - cd ../..
   build:
     commands:
-      - sam build
+      - npm test
   post_build:
     commands:
-      - sam deploy
+      - aws cloudformation package --template-file template.yaml --stack-name my-stack-name --s3-bucket api-palmtech-devops --capabilities CAPABILITY_IAM
