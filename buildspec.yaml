@@ -13,9 +13,6 @@ phases:
     commands:
       - npm test
       - sam build
-  post_build:
-    commands:
-      - aws cloudformation package --template-file template.yaml --s3-bucket data-palmtech --output-template-file packaged-template.yaml 
 artifacts:
   files:
-    - packaged-template.yaml 
+    - .aws-sam/build/template.yaml 
