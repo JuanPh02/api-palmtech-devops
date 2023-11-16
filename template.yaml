@@ -176,7 +176,7 @@ Resources:
       Runtime: nodejs16.x
       Environment:
         Variables:
-          FAILURE_INJECTION_PARAM: !Ref failureLambdaParameter
+          FAILURE_INJECTION_PARAM: 'failureLambdaConfig'
       Architectures:
       - x86_64
       Policies:
@@ -188,8 +188,12 @@ Resources:
           Resource: 
           - 'arn:aws:dynamodb:us-east-1:028433173749:table/Services'
       - Statement:
-        - Sid: SSMParameterReadPolicy
-          ParameterName: !Ref failureLambdaParameter
+        - Sid: AllowSSM
+          Effect: Allow
+          Action:
+          - ssm:*
+          Resource: 
+          - 'arn:aws:ssm:us-east-1:028433173749:parameter/failureLambdaConfig'
       Events:
         GetServices:
           Type: Api
@@ -242,27 +246,6 @@ Resources:
           Properties:
             Path: /services
             Method: delete             
-
-  ApplicationResourceGroup:
-    Type: AWS::ResourceGroups::Group
-    Properties:
-      Name:
-        Fn::Sub: ApplicationInsights-SAM-${AWS::StackName}
-      ResourceQuery:
-        Type: CLOUDFORMATION_STACK_1_0
-  ApplicationInsightsMonitoring:
-    Type: AWS::ApplicationInsights::Application
-    Properties:
-      ResourceGroupName:
-        Ref: ApplicationResourceGroup
-      AutoConfigurationEnabled: 'true'
-
-  # ------------------------------ TEORIA DEL CAOS ----------------------------- #
-  failureLambdaParameter:
-    Type: 'AWS::SSM::Parameter'
-    Properties:
-      Type: String
-      Value: '{"isEnabled": false, "failureMode": "latency", "rate": 1, "minLatency": 100, "maxLatency": 400, "exceptionMsg": "Exception message!", "statusCode": 404, "diskSpace": 100, "denylist": ["s3.*.amazonaws.com", "dynamodb.*.amazonaws.com"]}'
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
