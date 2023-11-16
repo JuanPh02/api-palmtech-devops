@@ -11,8 +11,6 @@ phases:
       - export AWS_DEFAULT_REGION=us-east-1
   build:
     commands:
-      - npm test
+      - npm test || exit 1
       - sam build
-artifacts:
-  files:
-    - .aws-sam/build/template.yaml 
+      - sam deploy --no-confirm-changeset --no-fail-on-empty-changeset
