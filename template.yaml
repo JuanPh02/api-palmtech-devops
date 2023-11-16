@@ -257,7 +257,6 @@ Resources:
         Ref: ApplicationResourceGroup
       AutoConfigurationEnabled: 'true'
 
-
   # ------------------------------ TEORIA DEL CAOS ----------------------------- #
   failureLambdaParameter:
     Type: 'AWS::SSM::Parameter'
