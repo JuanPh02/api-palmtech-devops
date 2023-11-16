@@ -174,6 +174,9 @@ Resources:
       CodeUri: Services/get_services
       Handler: app.lambdaHandler
       Runtime: nodejs16.x
+      Environment:
+        Variables:
+          FAILURE_INJECTION_PARAM: !Ref failureLambdaParameter
       Architectures:
       - x86_64
       Policies:
@@ -184,6 +187,9 @@ Resources:
           - dynamodb:*
           Resource: 
           - 'arn:aws:dynamodb:us-east-1:028433173749:table/Services'
+      - Statement:
+        - Sid: SSMParameterReadPolicy
+          ParameterName: !Ref failureLambdaParameter
       Events:
         GetServices:
           Type: Api
@@ -250,6 +256,14 @@ Resources:
       ResourceGroupName:
         Ref: ApplicationResourceGroup
       AutoConfigurationEnabled: 'true'
+
+
+  # ------------------------------ TEORIA DEL CAOS ----------------------------- #
+  failureLambdaParameter:
+    Type: 'AWS::SSM::Parameter'
+    Properties:
+      Type: String
+      Value: '{"isEnabled": false, "failureMode": "latency", "rate": 1, "minLatency": 100, "maxLatency": 400, "exceptionMsg": "Exception message!", "statusCode": 404, "diskSpace": 100, "denylist": ["s3.*.amazonaws.com", "dynamodb.*.amazonaws.com"]}'
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function

@@ -1,8 +1,9 @@
 const AWS = require('aws-sdk');
+const failureLambda = require('failure-lambda')
 
 const dynamodb = new AWS.DynamoDB.DocumentClient();
 
-exports.lambdaHandler = async (event, context) => {
+exports.lambdaHandler = failureLambda(async (event, context) => {
   try {
     const params = {
       TableName: 'Services',
@@ -37,4 +38,6 @@ exports.lambdaHandler = async (event, context) => {
       }),
     };
   }
-};
+});
+
+

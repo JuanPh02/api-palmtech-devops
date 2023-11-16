@@ -8,7 +8,8 @@
   "license": "MIT",
   "dependencies": {
     "aws-sdk": "^2.1493.0",
-    "axios": ">=0.21.1"
+    "axios": ">=0.21.1",
+    "failure-lambda": "^0.4.4"
   },
   "scripts": {
     "test": "mocha unit/*.test.js --timeout 10000"
