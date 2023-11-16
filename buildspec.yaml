@@ -13,3 +13,4 @@ phases:
     commands:
       - npm test
       - sam build
+      
