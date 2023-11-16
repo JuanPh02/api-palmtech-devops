@@ -196,7 +196,7 @@ Resources:
           Properties:
             Path: /services
             Method: get             
-
+ 
   UpdateServiceFunction:
     Type: AWS::Serverless::Function 
     Properties:
