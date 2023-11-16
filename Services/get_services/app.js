@@ -20,7 +20,10 @@ exports.lambdaHandler = failureLambda(async (event, context) => {
         'Access-Control-Allow-Credentials': 'true',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(result.Items),
+      body: JSON.stringify({
+        items: result.Items,
+        test: "Success"
+      })
     };
   } catch (error) {
     return {
