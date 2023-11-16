@@ -12,8 +12,6 @@ phases:
   build:
     commands:
       - npm test
-  post_build:
-    commands:
       - sam build
-      - sam deploy --no-confirm-changeset --no-fail-on-empty-changeset
+      
       
